@@ -1,3 +1,10 @@
+"""
+Local Voice AI Agent - QA Teacher
+Author: Shanaka Fernando
+Description: Real-time voice chat application powered by local AI models,
+             specifically designed as a software quality assurance and automation teacher.
+"""
+
 import sys
 
 from fastrtc import ReplyOnPause, Stream, get_stt_model, get_tts_model
