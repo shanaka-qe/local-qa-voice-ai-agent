@@ -45,9 +45,13 @@ def echo(audio):
         yield audio_chunk
 
 if __name__ == "__main__":
+    logger.info("🚀 Starting QA Voice Chat Agent...")
+    
     stream = Stream(
         ReplyOnPause(echo), 
         modality=STREAM_CONFIG["modality"], 
         mode=STREAM_CONFIG["mode"]
     )
+    
+    logger.info("🎤 QA Voice Chat Agent is ready! Open your browser to start chatting.")
     stream.ui.launch()

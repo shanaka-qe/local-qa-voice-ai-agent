@@ -217,33 +217,178 @@ print(result)
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Common Issues and Solutions
 
-1. **"Module not found" errors**:
+#### 1. **"ModuleNotFoundError: No module named 'fastrtc'"**
+
+This is the most common issue. The dependencies aren't installed properly.
+
+**Solution:**
+```bash
+# Make sure you're in the project directory
+cd local-voice-ai-agent
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Install dependencies with uv
+uv sync
+
+# Alternative: Install manually
+pip install "fastrtc[stt]>=0.0.33" kokoro-onnx>=0.4.9 loguru>=0.7.3 ollama>=0.6.0
+```
+
+#### 2. **"Virtual environment not activated"**
+
+You might be using the system Python instead of the project's virtual environment.
+
+**Check:**
+```bash
+# Check which Python you're using
+which python
+# Should show: /path/to/your/project/.venv/bin/python
+
+# If not, activate the environment
+source .venv/bin/activate
+```
+
+#### 3. **"Ollama connection failed" or "Model not found"**
+
+Ollama service isn't running or the model isn't downloaded.
+
+**Solution:**
+```bash
+# Start Ollama service (in a separate terminal)
+ollama serve
+
+# Check available models
+ollama list
+
+# Download the required model
+ollama pull gemma3:4b
+# or for better quality (requires more resources)
+ollama pull gemma3:12b
+```
+
+#### 4. **"Permission denied" or "Microphone access denied"**
+
+Browser/system permissions issues.
+
+**Solution:**
+- **macOS**: System Preferences → Security & Privacy → Microphone → Allow your browser/terminal
+- **Browser**: Grant microphone permissions when prompted
+- **Terminal**: Make sure your terminal has microphone access
+
+#### 5. **"Python version not supported"**
+
+The project requires Python 3.13+.
+
+**Check version:**
+```bash
+python --version
+```
+
+**Solution:**
+```bash
+# Install Python 3.13+ using uv
+uv python install 3.13
+uv venv --python 3.13
+```
+
+#### 6. **"Audio not working" or "No sound output"**
+
+Audio system issues.
+
+**Solution:**
+- Check system audio is working
+- Try refreshing the web interface
+- Check browser audio permissions
+- Restart the application
+
+#### 7. **"Application runs but no response"**
+
+AI model or configuration issues.
+
+**Solution:**
+```bash
+# Test Ollama connection
+ollama run gemma3:4b "Hello"
+
+# Check model configuration in config/settings.py
+# Make sure AI_MODEL matches your downloaded model
+```
+
+#### 8. **"Performance issues" or "Slow responses"**
+
+System resources or model size issues.
+
+**Solution:**
+- Use a smaller model: `gemma3:4b` instead of `gemma3:12b`
+- Reduce `AI_MAX_TOKENS` in `config/settings.py`
+- Close other applications to free up RAM
+- Check system resources: `htop` or Activity Monitor
+
+#### 9. **"uv command not found"**
+
+uv package manager not installed.
+
+**Solution:**
+```bash
+# Install uv
+brew install uv
+
+# Or use pip instead
+pip install -r requirements.txt
+```
+
+#### 10. **"FastRTC requires macOS"**
+
+This project only works on macOS due to FastRTC dependencies.
+
+**Solution:**
+- Ensure you're running on macOS
+- Check macOS version compatibility
+- Update to latest macOS if needed
+
+### Quick Diagnostic Commands
+
+Run these to identify issues:
+
+```bash
+# 1. Check Python and environment
+python --version
+which python
+
+# 2. Check dependencies
+pip list | grep fastrtc
+
+# 3. Test imports
+python -c "from fastrtc import get_stt_model; print('FastRTC OK')"
+
+# 4. Check Ollama
+ollama list
+ollama run gemma3:4b "Test"
+
+# 5. Check project structure
+ls -la config/settings.py utils/speech_enhancer.py
+```
+
+### Still Having Issues?
+
+1. **Check the logs** in your terminal for specific error messages
+2. **Verify all prerequisites** are installed correctly
+3. **Try the basic setup** from scratch:
    ```bash
-   # Make sure virtual environment is activated
+   git clone <your-repo>
+   cd local-voice-ai-agent
+   uv venv
    source .venv/bin/activate
    uv sync
-   ```
-
-2. **Model not found**:
-   ```bash
-   # Check available models
-   ollama list
-   
-   # Pull the required model
    ollama pull gemma3:4b
+   python local_voice_chat.py
    ```
-
-3. **Audio issues**:
-   - Check browser permissions for microphone access
-   - Ensure your system audio is working
-   - Try refreshing the web interface
-
-4. **Performance issues**:
-   - Use a smaller model like `gemma3:4b`
-   - Reduce `AI_MAX_TOKENS` in settings
-   - Close other applications to free up resources
+4. **Check GitHub Issues** for similar problems
+5. **Create a new issue** with your error details
 
 ## 📝 License
 
