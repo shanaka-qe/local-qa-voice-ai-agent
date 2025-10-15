@@ -1,0 +1,12 @@
+[project]
+name = "local-qa-voice-agent"
+version = "1.0"
+description = "A real-time voice chat application powered by local AI models."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastrtc[stt]>=0.0.33",
+    "kokoro-onnx>=0.4.9",
+    "loguru>=0.7.3",
+    "ollama>=0.6.0",
+]
