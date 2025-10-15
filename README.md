@@ -1,13 +1,13 @@
 # AI Voice Assistant for Quality Assurance - QA Teacher
 
-**Author:** Shanaka Fernando
+**Author:** Shanaka Fernando  
+**LinkedIn:** https://www.linkedin.com/in/shanaka-qe/
 
 A real-time voice chat application powered by local AI models, specifically designed as a software quality assurance and automation teacher. This project allows you to have natural voice conversations with an AI specialized in QA methodologies, testing strategies, and automation frameworks.
 
 **Perfect for creating test cases, asking QA questions, and learning automation frameworks through natural voice interaction.**
 
 > 📖 **New to this project?** Check out our [**User Guide**](USER_GUIDE.md) for a complete step-by-step setup walkthrough!
-
 
 ## 🎯 Features
 
